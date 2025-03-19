@@ -1,11 +1,15 @@
-import dayjs from "dayjs";
-
-export default function calculateDaysPassed(dateString: string) {
-  const date = dayjs(dateString, "DDMMYYYY").utc();
+import dayjs from "./dayjs";
+export default function daysPassed(
+  dateString: string,
+  locale: string = "en-US"
+) {
+  const date = dayjs.utc(dateString, "DDMMYYYY");
   console.log(date);
 
-  const now = dayjs().utc();
+  const now = dayjs.utc();
   const daysPassed = now.diff(date, "day");
 
-  return daysPassed.toString();
+  const formattedDaysPassed = new Intl.NumberFormat(locale).format(daysPassed);
+
+  return formattedDaysPassed;
 }
