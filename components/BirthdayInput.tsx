@@ -4,7 +4,7 @@ import React, { useState, useRef } from "react";
 import { Input } from "./ui/input";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
-import { Send } from "lucide-react";
+import { Cake } from "lucide-react";
 
 const BirthdayInput = () => {
   const [day, setDay] = useState<string>("");
@@ -67,7 +67,7 @@ const BirthdayInput = () => {
         />
       </div>
       <Button variant={"outline"} type="submit">
-        <Send size={16} /> Submit
+        <Cake size={16} /> Submit
       </Button>
     </form>
   );
