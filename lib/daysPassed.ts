@@ -1,15 +1,32 @@
 import dayjs from "./dayjs";
-export default function daysPassed(
-  dateString: string,
-  locale: string = "en-US"
-) {
+export default function daysPassed(dateString: string) {
   const date = dayjs.utc(dateString, "DDMMYYYY");
   console.log(date);
 
   const now = dayjs.utc();
   const daysPassed = now.diff(date, "day");
 
-  const formattedDaysPassed = new Intl.NumberFormat(locale).format(daysPassed);
+  const roundedTo10 = Math.ceil(daysPassed / 10) * 10;
+  const roundedTo100 = Math.ceil(daysPassed / 100) * 100;
+  const roundedTo1000 = Math.ceil(daysPassed / 1000) * 1000;
 
-  return formattedDaysPassed;
+  const formatNumber = (num: number) =>
+    new Intl.NumberFormat("en-DE").format(num);
+
+  const createRoundedInfo = (roundedValue: number) => {
+    const diff = roundedValue - daysPassed;
+    const futureDate = now.add(diff, "day").format("YYYY-MM-DD");
+    return {
+      age: formatNumber(roundedValue),
+      date: futureDate,
+      diff: formatNumber(diff),
+    };
+  };
+
+  return {
+    original: formatNumber(daysPassed),
+    roundedTo10: createRoundedInfo(roundedTo10),
+    roundedTo100: createRoundedInfo(roundedTo100),
+    roundedTo1000: createRoundedInfo(roundedTo1000),
+  };
 }

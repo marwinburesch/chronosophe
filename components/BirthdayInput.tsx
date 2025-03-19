@@ -35,7 +35,7 @@ const BirthdayInput = () => {
         router.push(`/${day}${month}${year}`);
       }}
     >
-      <label className="text-5xl py-4">Enter your birthday</label>
+      <label className="text-3xl md:text-5xl py-4">Enter your birthday</label>
       <div className="grid gap-2 justify-items-center grid-flow-col">
         <Input
           className="w-[3.25rem]"
