@@ -1,4 +1,5 @@
 import dayjs from "./dayjs";
+import { RoundedInfo } from "./types";
 export default function daysPassed(dateString: string) {
   const date = dayjs.utc(dateString, "DDMMYYYY");
   console.log(date);
@@ -13,9 +14,9 @@ export default function daysPassed(dateString: string) {
   const formatNumber = (num: number) =>
     new Intl.NumberFormat("en-DE").format(num);
 
-  const createRoundedInfo = (roundedValue: number) => {
+  const createRoundedInfo = (roundedValue: number): RoundedInfo => {
     const diff = roundedValue - daysPassed;
-    const futureDate = now.add(diff, "day").format("YYYY-MM-DD");
+    const futureDate = now.add(diff, "day").format("LL");
     return {
       age: formatNumber(roundedValue),
       date: futureDate,
