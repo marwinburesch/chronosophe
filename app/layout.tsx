@@ -3,20 +3,22 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@days-old/components/ThemeProvider";
 
-const bespokeSans = localFont({
-  src: "../public/fonts/BespokeSans-Variable.woff2",
-  variable: "--font-bespoke",
-});
-
-const crimsonPro = localFont({
+const author = localFont({
   src: [
-    { path: "../public/fonts/CrimsonPro-Variable.woff2", style: "normal" },
+    { path: "../public/fonts/Author-Variable.woff2", style: "normal" },
     {
-      path: "../public/fonts/CrimsonPro-VariableItalic.woff2",
+      path: "../public/fonts/Author-VariableItalic.woff2",
       style: "italic",
     },
   ],
-  variable: "--font-crimson",
+  variable: "--font-author",
+});
+
+const jetbrainsMono = localFont({
+  src: [
+    { path: "../public/fonts/JetBrainsMono-Variable.woff2", style: "mono" },
+  ],
+  variable: "--font-jetbrains-mono",
 });
 
 export const metadata: Metadata = {
@@ -32,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${bespokeSans.variable} ${crimsonPro.variable} antialiased`}
+        className={`${author.variable} ${jetbrainsMono.variable} antialiased font-sans`}
       >
         <ThemeProvider
           attribute="class"
