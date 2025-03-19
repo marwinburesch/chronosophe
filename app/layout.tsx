@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
+import { ThemeProvider } from "@days-old/components/ThemeProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const bespokeSans = localFont({
+  src: "../public/fonts/BespokeSans-Variable.woff2",
+  variable: "--font-bespoke",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const crimsonPro = localFont({
+  src: [
+    { path: "../public/fonts/CrimsonPro-Variable.woff2", style: "normal" },
+    {
+      path: "../public/fonts/CrimsonPro-VariableItalic.woff2",
+      style: "italic",
+    },
+  ],
+  variable: "--font-crimson",
 });
 
 export const metadata: Metadata = {
@@ -23,11 +30,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${bespokeSans.variable} ${crimsonPro.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
