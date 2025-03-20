@@ -6,6 +6,10 @@ import { Separator } from "./ui/separator";
 type MilestoneCardProps = Readonly<RoundedInfo>;
 
 const MilestoneCard: React.FC<MilestoneCardProps> = ({ age, date, diff }) => {
+  if (diff === "0") {
+    return null;
+  }
+
   return (
     <Card className="relative">
       <CardHeader>
