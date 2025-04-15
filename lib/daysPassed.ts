@@ -1,33 +1,26 @@
 import dayjs from "./dayjs";
-import { RoundedInfo } from "./types";
-export default function daysPassed(dateString: string) {
-  const date = dayjs.utc(dateString, "DDMMYYYY");
-  console.log(date);
 
+/**
+ * Calculate the number of days passed since a given date and return the next milestone date.
+ * @param {string} dateString - The date string in "DDMMYYYY" format.
+ * @param {number} roundTo - The number of days to round to.
+ * @returns {object} An object containing the birthday date, rounded age, future date, and difference in days.
+ */
+export default function daysPassed(dateString: string, roundTo: number) {
+  const date = dayjs.utc(dateString, "DDMMYYYY");
   const now = dayjs.utc();
   const daysPassed = now.diff(date, "day");
 
-  const roundedTo10 = Math.ceil(daysPassed / 10) * 10;
-  const roundedTo100 = Math.ceil(daysPassed / 100) * 100;
-  const roundedTo1000 = Math.ceil(daysPassed / 1000) * 1000;
-
-  const formatNumber = (num: number) =>
-    new Intl.NumberFormat("en-DE").format(num);
-
-  const createRoundedInfo = (roundedValue: number): RoundedInfo => {
-    const diff = roundedValue - daysPassed;
-    const futureDate = now.add(diff, "day").format("LL");
-    return {
-      age: formatNumber(roundedValue),
-      date: futureDate,
-      diff: formatNumber(diff),
-    };
-  };
+  const roundedValue = Math.ceil(daysPassed / roundTo) * roundTo;
+  const diff = roundedValue - daysPassed;
+  const futureDate = now.add(diff, "day").toDate();
 
   return {
-    original: formatNumber(daysPassed),
-    roundedTo10: createRoundedInfo(roundedTo10),
-    roundedTo100: createRoundedInfo(roundedTo100),
-    roundedTo1000: createRoundedInfo(roundedTo1000),
+    birthday: date.toDate(),
+    rounded: {
+      age: roundedValue,
+      date: futureDate,
+      diff: diff,
+    },
   };
 }
